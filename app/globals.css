@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus styles for keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #18181b;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Remove default focus outline for mouse users */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Homepage grid layout */
+@media (min-width: 1024px) {
+  .homepage-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 1rem;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .grid-hero {
+    grid-column: 1 / 5;
+    grid-row: 1 / 3;
+  }
+
+  .grid-navigation {
+    grid-column: 5 / 8;
+    grid-row: 1 / 3;
+  }
+
+  .grid-projects {
+    grid-column: 1 / 6;
+    grid-row: 3 / 5;
+  }
+
+  .grid-tech-stack {
+    grid-column: 6 / 8;
+    grid-row: 3 / 5;
+  }
+
+  .grid-blog {
+    grid-column: 1 / 6;
+    grid-row: 5 / 7;
+  }
+}
