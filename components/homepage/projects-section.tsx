@@ -7,30 +7,20 @@ const projects = [
     title: "Project One",
     description: "A brief description of the first project",
   },
-  {
-    slug: "project-two",
-    title: "Project Two",
-    description: "A brief description of the second project",
-  },
-  {
-    slug: "project-three",
-    title: "Project Three",
-    description: "A brief description of the third project",
-  },
 ];
 
 export function ProjectsSection() {
   return (
-    <section aria-labelledby="projects-heading">
-      <h2 id="projects-heading" className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">
+    <section className="overflow-hidden" aria-labelledby="projects-heading">
+      <h2
+        id="projects-heading"
+        className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl"
+      >
         Projects
       </h2>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col">
         {projects.map((project) => (
-          <article
-            key={project.slug}
-            className="flex flex-col gap-2 rounded-lg border border-zinc-200 bg-white p-6"
-          >
+          <article key={project.slug} className="flex flex-col gap-2   ">
             <h3 className="text-xl font-semibold">
               <Link
                 href={`/projects/${project.slug}`}
