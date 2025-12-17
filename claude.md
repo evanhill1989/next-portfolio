@@ -406,6 +406,90 @@ Do not use GSAP for:
 - Basic hover effects (use CSS)
 - Loading spinners or indefinite loops
 
+#### Critical Modern GSAP React Patterns
+
+**ALWAYS use the `useGSAP()` hook instead of `useEffect()` or `useLayoutEffect()`.**
+
+**Required Setup:**
+
+```typescript
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+// Must register before use
+gsap.registerPlugin(useGSAP);
+```
+
+**Core Pattern with Scoping:**
+
+```typescript
+const container = useRef<HTMLDivElement>(null);
+
+useGSAP(
+  () => {
+    // Animations here are automatically cleaned up on unmount
+    gsap.to(".box", { x: 360 });
+  },
+  { scope: container }
+); // ALWAYS use scope to limit selector context
+```
+
+**Why useGSAP() is Required:**
+
+- Automatic cleanup via `gsap.context()` - all animations, ScrollTriggers, Draggables revert on unmount
+- Handles React 18 Strict Mode (prevents duplicate animations in development)
+- Prevents memory leaks
+- SSR-safe for Next.js (uses `useLayoutEffect()` when available, falls back to `useEffect()`)
+
+**Interaction Animations Pattern (Critical):**
+
+Event handlers execute AFTER the hook, so animations in onClick/onHover are NOT automatically cleaned up.
+
+**Solution: Use `contextSafe()`**
+
+```typescript
+const { contextSafe } = useGSAP({ scope: container });
+
+const handleClick = contextSafe(() => {
+  gsap.to(".box", { rotation: 180 });
+});
+
+return <button onClick={handleClick}>Animate</button>;
+```
+
+**Reactive Animations with Dependencies:**
+
+```typescript
+useGSAP(
+  () => {
+    gsap.to(".box", { x: endX });
+  },
+  {
+    dependencies: [endX], // Re-run when endX changes
+    revertOnUpdate: true, // Cleanup old animation before creating new one
+  }
+);
+```
+
+**Config Object Properties:**
+
+- `scope`: React ref limiting selector queries to container descendants (ALWAYS use this)
+- `dependencies`: Array controlling when animations re-execute (like useEffect deps)
+- `revertOnUpdate`: Boolean; reverts context when dependencies change
+
+**Common Mistakes to Avoid:**
+
+1. ❌ Using `.querySelector()` or unscoped selectors - use `scope` instead
+2. ❌ Forgetting `contextSafe()` for event handlers
+3. ❌ Using `useEffect()` instead of `useGSAP()`
+4. ❌ Not registering the plugin: `gsap.registerPlugin(useGSAP)`
+5. ❌ Animations in timeouts/callbacks without `contextSafe()`
+
+**For Next.js:**
+
+- Add `"use client"` directive at top of component file
+- The hook is SSR-safe by default
+
 ---
 
 ## Accessibility & Usability
