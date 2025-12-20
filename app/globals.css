@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-lexend);
   --font-mono: var(--font-geist-mono);
+}
+
+:root {
 }
 
 /* Base styles */
@@ -13,7 +16,7 @@
 
 body {
   margin: 0;
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-lexend), system-ui, sans-serif;
   background-color: #18181b;
   color: antiquewhite;
   -webkit-font-smoothing: antialiased;
@@ -50,7 +53,7 @@ button:focus:not(:focus-visible) {
   /* Mobile: flex column stack */
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+
   height: 100vh;
 }
 
@@ -65,56 +68,82 @@ button:focus:not(:focus-visible) {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    gap: 1rem;
+
     height: 100vh;
 
     overflow: hidden; /* Prevents scrollbars during big expansions */
   }
 
+  .homepage-grid > div {
+    outline: 1px dashed antiquewhite;
+  }
+
   /* --- Default Positions --- */
   .grid-hero {
-    grid-column: 1 / 5;
-    grid-row: 1 / 4;
+    grid-column: 1 / 6;
+    grid-row: 1 / 6;
   }
   .grid-navigation {
-    grid-column: 5 / 8;
+    grid-column: 6 / 8;
     grid-row: 1 / 2;
   }
   .grid-projects {
-    grid-column: 5 / 8;
-    grid-row: 2 / 5;
+    grid-column: 6 / 8;
+    grid-row: 2 / 6;
   }
   .grid-tech-stack {
-    grid-column: 1 / 5;
-    grid-row: 4 / 7;
+    grid-column: 1 / 6;
+    grid-row: 6 / 7;
   }
   .grid-blog {
-    grid-column: 5 / 8;
-    grid-row: 5 / 7;
+    grid-column: 6 / 8;
+    grid-row: 6 / 7;
+    background-color: green;
   }
 
-  /* --- Active/Expanded States --- */
-
-  /* When Hero is hovered, push its boundaries */
-  .homepage-grid[data-active="hero"] .grid-hero {
-    grid-column: 1 / 6;
-    grid-row: 1 / 6;
-    background-color: rgba(255, 0, 0, 0.1); /* Subtle visual hint */
+  /* When Projects is hovered */
+  .homepage-grid[data-active="projects"] .grid-projects {
+    grid-column: 3 / 8;
+    grid-row: 2 / 7;
     z-index: 10;
+  }
+  .homepage-grid[data-active="projects"] .grid-navigation {
+    grid-column: 3 / 8;
+    grid-row: 1 / 2;
+    z-index: 10;
+  }
+  .homepage-grid[data-active="projects"] .grid-hero {
+    grid-column: 1 / 3;
+    grid-row: 1 / 4;
+    z-index: 10;
+  }
+  /* .homepage-grid[data-active="projects"] .grid-navigation {
+  } */
+  .homepage-grid[data-active="projects"] .grid-tech-stack {
+    grid-column: 1 / 3;
+    grid-row: 4 / 7;
+    z-index: 10;
+  }
+  .homepage-grid[data-active="projects"] .grid-blog {
+    display: none;
   }
 
   /* When Tech Stack is hovered, make it take more space */
   .homepage-grid[data-active="tech-stack"] .grid-tech-stack {
-    grid-column: 1 / 7;
+    grid-column: 1 / 6;
     grid-row: 2 / 7;
     z-index: 10;
   }
-
+  .homepage-grid[data-active="tech-stack"] .grid-hero {
+    grid-column: 1 / 6;
+    grid-row: 1 / 2;
+    z-index: 10;
+  }
   /* Make other items slightly transparent when something is active */
-  .homepage-grid[data-active] > div:not([style*="z-index: 10"]) {
+  /* .homepage-grid[data-active] > div:not([style*="z-index: 10"]) {
     opacity: 0.4;
     filter: blur(2px);
-  }
+  } */
   .tech-stack {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -128,13 +157,5 @@ button:focus:not(:focus-visible) {
   .tech-stack > h2 {
     grid-column: 1/ 4;
     grid-row: 1/2;
-  }
-
-  .grid-blog {
-    grid-column: 5 / 8;
-    grid-row: 5 / 7;
-  }
-  .grid {
-    background-color: blue;
   }
 }

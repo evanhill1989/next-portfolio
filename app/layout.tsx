@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lexend, Lexend_Giga } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lexend = Lexend({
   subsets: ["latin"],
+  variable: "--font-lexend",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lexend_giga = Lexend_Giga({
   subsets: ["latin"],
+  variable: "--font-lexend_giga",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Your Name | Web Developer",
-  description: "Portfolio showcasing web development projects with focus on modern, performant solutions.",
+  description:
+    "Portfolio showcasing web development projects with focus on modern, performant solutions.",
   openGraph: {
     title: "Your Name | Web Developer",
-    description: "Portfolio showcasing web development projects with focus on modern, performant solutions.",
+    description:
+      "Portfolio showcasing web development projects with focus on modern, performant solutions.",
     type: "website",
   },
 };
@@ -30,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lexend.variable} ${lexend_giga.variable} antialiased`}
       >
         {children}
       </body>
