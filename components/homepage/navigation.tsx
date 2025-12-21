@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Navigation() {
   return (
-    <nav aria-label="Primary navigation">
+    <nav className="nav m-2.5 rounded-sm" aria-label="Primary navigation">
       <ul className="flex flex-col lg:flex-row lg:justify-between gap-4 text-base sm:text-lg">
         <li>
           <Link

@@ -14,7 +14,10 @@ const backEndTech = ["Node.js", "Supabase", "Drizzle", "SQL", "PostgreSQL"];
 
 export function TechStack() {
   return (
-    <section aria-labelledby="tech-stack-heading" className="tech-stack">
+    <section
+      aria-labelledby="tech-stack-heading"
+      className="tech-stack rounded-sm"
+    >
       <h2
         id="tech-stack-heading"
         className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl"

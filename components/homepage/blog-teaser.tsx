@@ -11,7 +11,7 @@ const recentPosts = [
 
 export function BlogTeaser() {
   return (
-    <section aria-labelledby="blog-heading">
+    <section aria-labelledby="blog-heading" className="blog-teaser">
       <div className="mb-4 flex items-baseline justify-between">
         <h2
           id="blog-heading"
